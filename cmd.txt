@@ -1,0 +1,5 @@
+
+Sfc /ScanNow
+node 
+msconfig
+rstrui
