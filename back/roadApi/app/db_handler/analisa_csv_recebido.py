@@ -11,7 +11,7 @@ Retorna: arquivo csv com dados com km e rodovia (highway).
     Dados são gravados no banco de dados. 
 """
 def analisa_csv_recebido(path):
-    path_out = '/back/roadApi/static/_data/_data_out/'
+    path_out = '/back/roadApi/app/static/_data/_data_out/'
 
     try:
         df = pd.read_csv(path)

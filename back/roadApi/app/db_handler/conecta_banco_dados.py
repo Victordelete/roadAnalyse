@@ -19,7 +19,7 @@ Recebe:
 Retorna: True se sucesso, false se erro. 
 """
 def inicia_banco_dados():
-    file = os.getcwd() + '/back/roadApi/db_handler/inicia_banco.sql'
+    file = os.getcwd() + '/back/roadApi/app/db_handler/inicia_banco.sql'
 
     try: 
         conn = psycopg2.connect(**db_params)
@@ -138,3 +138,6 @@ def registra_resultado_auxiliar(reg_rodovias, reg_videos):
     except Exception as error:
         print(f"Error: '{error}'")
         return False
+
+
+inicia_banco_dados()

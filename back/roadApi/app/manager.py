@@ -1,16 +1,21 @@
 import json
 import os
 from flask import Flask, render_template, url_for, request
+from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
 
 import db_handler.analisa_csv_recebido as analisa_csv
 import db_handler.conecta_banco_dados as conndb
 
-UPLOAD_FOLDER = r'\static\_data\_data_in\\'
+UPLOAD_FOLDER = r'\\static\_data\_data_in\\'
 ALLOWED_EXTENSIONS = {'csv'}
 
+#Instancia Flask
 app = Flask(__name__, template_folder='templates_folder')
+#Config flask
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -21,6 +26,7 @@ def info():
     return render_template('index.html')
 
 @app.route('/data', methods=['POST', 'GET'])
+@cross_origin()
 def data():
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -47,7 +53,7 @@ def data():
     
     return json.dumps({"Problema nao identificado no recebimento do arquivo.":False}), 500
 
-@app.route('/rodovia', methods=[ 'GET'])
+@app.route('/rodovia', methods=[ 'POST'])
 def consulta_rodovia_info():
     data = request.json
     results = conndb.query_km_max_item(rodovia=data.get('rodovia'), item=data.get('item'))
@@ -57,7 +63,7 @@ def consulta_rodovia_info():
     else:
         return json.dumps({"Consulta nao foi possivel." :False}), 404
 
-@app.route('/above_avg', methods=[ 'GET'])
+@app.route('/above_avg', methods=[ 'POST'])
 def consulta_above_avg():
     data = request.json
     tabela = data.get('tabela')
@@ -69,5 +75,8 @@ def consulta_above_avg():
         return json.dumps({"Consulta nao foi possivel." :False}), 404
 
 if __name__ == "__main__":
-    conndb.inicia_banco_dados()
-    app.run()
+    try:
+        conndb.inicia_banco_dados()
+        app.run()
+    except Exception as error:
+        print(f"Error: '{error}'")
