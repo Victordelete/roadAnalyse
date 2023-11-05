@@ -28,8 +28,6 @@
         </div>
 
     </div>
-
-    <hr>
 </template>
 
 <script>

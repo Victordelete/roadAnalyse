@@ -16,8 +16,6 @@
       <button @click="sendFile">Enviar</button>
     </div>
   </div>
-
-  <hr>
 </template>
 
 <script>
