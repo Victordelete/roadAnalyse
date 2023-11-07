@@ -1,3 +1,7 @@
+# ROADANALYSE
+
+Projeto apresenta interface web composta por API (Flask) e página frontend (VueJs) para gestão das informçaões. Dados armazenados em banco de dados Postgres, iniciando automáticamente via Script.
+
 ## REQUISITOS
 
 ### ENTREGUES
@@ -30,7 +34,21 @@ npm run electron:serve
 
 ## UTILIZAÇÃO 
 
-pasta para os arquivos de saída com o nome da rodovia, com sobreposição. 
+Pasta para os arquivos de saída com o nome da rodovia, com sobreposição. 
+
+### ROTAS APIs
+- /info
+    1. Apresenta página estática com informações do desenvolvedor. 
+- /data
+    1. Recebe arquivo com Key: 'file' e arquivo csv de dados. 
+    2. Retorna True/False se Sucesso/Erro. 
+- /rodovia
+    1. Recebe Json com "rodovia" e "item" em string. 
+    2. Retorna lista com kms com maior indicência do "item" na "rodovia". 
+- /above_avg
+    1. Recebe Json com "tabela endereçando item (Buraco, Trinca ou Remendo). 
+    2. Retorna lista com rodovias, kms e incidência do "item" acima da média. 
+
 
 ## VERSÕES
 
